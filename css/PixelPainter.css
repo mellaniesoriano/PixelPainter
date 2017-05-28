@@ -1,0 +1,28 @@
+#pixelPainter {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+
+#grid, #colors {
+  display: flex;
+  border: 0.25px solid #808080;
+}
+
+#sidebar {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+
+.pixelSq, .colorSq {
+  height: 15px;
+  width: 16px;
+  border: 0.25px solid #808080;
+
+}
+
+#eraseButton, #clearButton {
+  margin: 5px;
+}
