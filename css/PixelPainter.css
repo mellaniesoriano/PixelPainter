@@ -1,24 +1,25 @@
 #pixelPainter {
   display: flex;
-  flex-direction: row;
+  flex-direction: column-reverse;
+  justify-content: center; align-items: center;
   padding: 10px;
 }
 
 #grid, #colors {
   display: flex;
-  border: 0.25px solid #808080;
+  padding: 5px;
 }
 
 #sidebar {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin-right: 10px;
 }
 
 
 .pixelSq, .colorSq {
-  height: 15px;
-  width: 16px;
+  height: 30px;
+  width: 30px;
   border: 0.25px solid #808080;
 
 }
