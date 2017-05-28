@@ -16,7 +16,6 @@ function pixelPainter() {
       for (var y = 0; y < height; y++) {
         var pixelSq = document.createElement('div');
         pixelSq.className = pixelClass;
-        // pixelSq.innerHTML = 'x';
         row.appendChild(pixelSq);
       }
       appendTarget.appendChild(row);
@@ -56,9 +55,7 @@ function pixelPainter() {
 
   function eventListeners(className, func) {
     var currentClass = document.querySelectorAll(className);
-    console.log(currentClass.length);
     for (var i = 0; i < currentClass.length; i++) {
-      console.log('hi');
       currentClass[i].addEventListener('click', func);
     }
   }
@@ -80,7 +77,7 @@ function pixelPainter() {
     }
   }
 
-  var colorArray = [ 'black', '#373737', '#D3D3D3', 'orange', '#7507FE', '#50E8FF', '#7DF481', '#04560A', '#FFFF00', '#800000', '#FF0080', '#FFBAD2', '#6F4E2F', '#00FF00', '#FE0000', '#030056', '#FF00FF', '#F76F3E', '#91C7B0', '#02A5E8', '#0F0B19', '#FFED5E' ];  //set your color choice here.
+  var colorArray = [ '#000000', '#333333', '#555555', '#777777','#ffffff', '#00059F', '#0229BF', '#4E91FD', '#78C4FD', '#B9E2F5', '#006400', '#008B00', '#00CD00', '#00EE00', '#95F571', '#660066', '#800080', '#BE29EC', '#D896FF', '#EFBBFF', '#6F0000', '#B80000', '#D22525', '#FF6666', '#FFB9B9', '#FF4F00', '#FF6700', '#FF9248', '#FFAC00', '#FFE577', '#2E1915', '#663300', '#996633', '#BB9966', '#FFCC99'];  //set your color choice here.
 
   var pixelPainter1 = pixelPainter();
 
@@ -94,7 +91,7 @@ function pixelPainter() {
   pixelPainter1.makeGrid(20, 20, 'pixelSq',grid); //set grid size here
   eventListeners('.pixelSq', clickPixel);
 
-  pixelPainter1.makeGrid(5, 8,'colorSq', colors);  //set color palette size here
+  pixelPainter1.makeGrid(7, 5,'colorSq', colors);  //set color palette size here
   eventListeners('.colorSq', pickColor);
   fillColorPalette(colorArray);
 
