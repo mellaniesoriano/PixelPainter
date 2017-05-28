@@ -1,3 +1,16 @@
+body {
+  background-image: url('http://i68.tinypic.com/2d11kj4.png');
+  background-size: 25%;
+}
+
+h1 {
+  font-family: 'Emilys Candy', cursive;
+  font-size: 100px;
+  letter-spacing: 25px;
+  text-align: center;
+  margin-bottom: 0px;
+}
+
 #pixelPainter {
   display: flex;
   flex-direction: column-reverse;
@@ -8,6 +21,9 @@
 #grid, #colors {
   display: flex;
   padding: 5px;
+  background-color: white;
+  margin: 10px;
+  margin-top: 0px;
 }
 
 #sidebar {
@@ -26,4 +42,17 @@
 
 #eraseButton, #clearButton {
   margin: 5px;
+}
+
+#curColorBox {
+  border: 1px solid black;
+  height: 80px;
+  width: 100px;
+  margin-top: 10px;
+  background-color: black;
+}
+
+#sideBarChild {
+  display: flex;
+  flex-direction: column;
 }
