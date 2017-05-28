@@ -85,6 +85,7 @@ function pixelPainter() {
 
   function pickColor() { //when you click on a color tile, it makes that the new drawing color.
     pixelPainter1.setCurrentColor(this.style.background);
+    curColorBox.style.background = this.style.background;
   }
 
 
@@ -116,8 +117,10 @@ function pixelPainter() {
   var mainBox = document.querySelector('#pixelPainter');
   makeDiv('sideBar', 'div', mainBox, '');
   makeDiv('colors', 'div', sideBar, '');
-  makeDiv('eraseButton', 'button', sideBar, 'eraseButton');
-  makeDiv('clearButton', 'button', sideBar, 'clearButton');
+  makeDiv('sideBarChild', 'div', sideBar, '');
+  makeDiv('curColorBox', 'div', sideBarChild, '');
+  makeDiv('eraseButton', 'button', sideBarChild, 'eraseButton');
+  makeDiv('clearButton', 'button', sideBarChild, 'clearButton');
   makeDiv('grid', 'div', mainBox, '');
 
   pixelPainter1.makeGrid(20, 20, 'pixelSq',grid); //set grid size here
