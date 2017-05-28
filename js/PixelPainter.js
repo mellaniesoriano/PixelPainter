@@ -16,7 +16,7 @@ function pixelPainter() {
       for (var y = 0; y < height; y++) {
         var pixelSq = document.createElement('div');
         pixelSq.className = pixelClass;
-        pixelSq.innerHTML = '[ ]';
+        // pixelSq.innerHTML = 'x';
         row.appendChild(pixelSq);
       }
       appendTarget.appendChild(row);
@@ -75,27 +75,26 @@ function pixelPainter() {
 
   function fillColorPalette(arrayOfColors){  //fills the color pixels with ...color
     var colorGrid = document.querySelectorAll('.colorSq');
-    console.log(colorGrid);
     for( var i = 0; i < arrayOfColors.length; i++ ) {
-      console.log(i);
       colorGrid[i].style.background = arrayOfColors[i];
     }
   }
 
-  var colorArray = [ 'black', '#373737', '#D3D3D3', 'orange' ];  //set your color choice here.
+  var colorArray = [ 'black', '#373737', '#D3D3D3', 'orange', '#7507FE', '#50E8FF', '#7DF481', '#04560A', '#FFFF00', '#800000', '#FF0080', '#FFBAD2', '#6F4E2F', '#00FF00', '#FE0000', '#030056', '#FF00FF', '#F76F3E', '#91C7B0', '#02A5E8', '#0F0B19', '#FFED5E' ];  //set your color choice here.
 
   var pixelPainter1 = pixelPainter();
 
-  makeDiv('grid', 'div', mainBox, 'grid');
-  makeDiv('sideBar', 'div', mainBox, 'sideBar');
-  makeDiv('colors', 'div', sideBar, 'colors');
+
+  makeDiv('sideBar', 'div', mainBox, '');
+  makeDiv('colors', 'div', sideBar, '');
   makeDiv('eraseButton', 'button', sideBar, 'eraseButton');
   makeDiv('clearButton', 'button', sideBar, 'clearButton');
+  makeDiv('grid', 'div', mainBox, '');
 
-  pixelPainter1.makeGrid(3, 3, 'pixelSq',grid); //set grid size here
+  pixelPainter1.makeGrid(20, 20, 'pixelSq',grid); //set grid size here
   eventListeners('.pixelSq', clickPixel);
 
-  pixelPainter1.makeGrid(2, 2,'colorSq', colors);  //set color palette size here
+  pixelPainter1.makeGrid(5, 8,'colorSq', colors);  //set color palette size here
   eventListeners('.colorSq', pickColor);
   fillColorPalette(colorArray);
 
