@@ -46,11 +46,11 @@ function pixelPainter() {
   return {
     getCurrentColor : getCurrentColor,
     setCurrentColor : setCurrentColor,
+    getDragging : getDragging,
+    setDragging : setDragging,
     makeGrid : makeGrid,
     clear : clear,
-    erase : erase,
-    getDragging : getDragging,
-    setDragging : setDragging
+    erase : erase
   };
 }
 
@@ -75,9 +75,7 @@ function pixelPainter() {
       this.style.background = pixelPainter1.getCurrentColor();
   }
   function dragPixel() {  //change this so color picking matters.  problem is how to access pixel painter object from here
-    console.log("clickpixel " + pixelPainter1.getDragging());
     if( pixelPainter1.getDragging() === true ) {
-      console.log("painting");
       this.style.background = pixelPainter1.getCurrentColor();
     }
 
@@ -97,13 +95,12 @@ function pixelPainter() {
   }
 
   function nowDragging() {
-    console.log("now dragging");
     pixelPainter1.setDragging(true);
-    console.log(pixelPainter1.getDragging());
+    this.style.background = pixelPainter1.getCurrentColor();
+
   }
 
   function notDragging() {
-    console.log("not dragging");
     pixelPainter1.setDragging(false);
   }
 
@@ -126,12 +123,12 @@ function pixelPainter() {
   pixelPainter1.makeGrid(20, 20, 'pixelSq',grid); //set grid size here
   eventListeners('.pixelSq', clickPixel);
 
-    var currentClass = document.querySelectorAll('.pixelSq');
-    for (var i = 0; i < currentClass.length; i++) {
-      currentClass[i].addEventListener('mouseover', dragPixel);
-    }
-
-
+  var implementDragging = document.querySelectorAll('.pixelSq');
+  for (var i = 0; i < implementDragging.length; i++) {
+    implementDragging[i].addEventListener('mouseover', dragPixel);
+    implementDragging[i].addEventListener("mousedown", nowDragging);
+  }
+  grid.addEventListener("mouseup", notDragging);
 
 
   pixelPainter1.makeGrid(7, 5,'colorSq', colors);  //set color palette size here
@@ -142,8 +139,6 @@ function pixelPainter() {
 
   eventListeners('#eraseButton', pixelPainter1.erase);
 
-  grid.addEventListener("mousedown", nowDragging);
-  grid.addEventListener("mouseup", notDragging);
 
 
 
