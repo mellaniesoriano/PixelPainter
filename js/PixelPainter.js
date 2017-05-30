@@ -54,6 +54,13 @@ function pixelPainter() {
     console.log(getWholeGrid[1].style);
   }
 
+  function fill() {
+    var clearGrid = document.querySelectorAll('.pixelSq');
+    for( var i = 0; i < clearGrid.length; i++ ) {
+      clearGrid[i].style.background = getCurrentColor();
+    }
+  }
+
   return {
     getCurrentColor : getCurrentColor,
     setCurrentColor : setCurrentColor,
@@ -62,7 +69,8 @@ function pixelPainter() {
     makeGrid : makeGrid,
     clear : clear,
     erase : erase,
-    save : save
+    save : save,
+    fill : fill
   };
 }
 
@@ -134,6 +142,7 @@ function pixelPainter() {
   makeDiv('eraseButton', 'button', sideBarChild, 'Erase');
   makeDiv('clearButton', 'button', sideBarChild, 'Clear');
   makeDiv('saveButton', 'button', sideBarChild, 'Save');
+  makeDiv('fillButton', 'button', sideBarChild, 'Fill');
 
   pixelPainter1.makeGrid(20, 20, 'pixelSq',grid); //set grid size here
   eventListeners('.pixelSq', clickPixel);
@@ -153,6 +162,7 @@ function pixelPainter() {
   eventListeners('#clearButton', pixelPainter1.clear);
   eventListeners('#eraseButton', pixelPainter1.erase);
   eventListeners('#saveButton', pixelPainter1.save);
+  eventListeners('#fillButton', pixelPainter1.fill);
 
 
 
