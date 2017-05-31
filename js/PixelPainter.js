@@ -1,8 +1,9 @@
 function pixelPainter() {
   var currentColor = "black";
   var isDragging = false;
+  var mode = "draw";
 
-  var saveFile = {};
+  var savedPixelGrid = {};
 
   function getCurrentColor() {
     return currentColor;
@@ -19,6 +20,18 @@ function pixelPainter() {
   function setDragging(value) {
     isDragging = value;
   }
+
+  function getMode() {
+    return mode;
+  }
+
+  function getCoordinate(x, y) {
+    var targetPixel = grid.querySelectorAll(".row")[x];
+    targetPixel = targetPixel.querySelectorAll(".pixelSq")[y];
+    return targetPixel;
+  }
+
+
 
   function makeGrid(width, height, pixelClass, appendTarget) {
     for (var x = 0; x < width; x++) {
@@ -44,14 +57,32 @@ function pixelPainter() {
     setCurrentColor('white');
   }
 
-  function save() {
+  function save() {  //saves a div identical to the current grid to a variable in the pixelPainter object.
     var getWholeGrid = document.querySelectorAll(".pixelSq");
-    var savingPixels = [];
-    var currentPixelColor = "";
-    for( var i = 0; i < getWholeGrid.length; i++ ) {
-      currentPixelColor = getWholeGrid[i].style;
+    var pixelCounter = 0;
+
+    savedPixelGrid = document.createElement("div");
+
+    for(var x = 0; x < 20; x++) {
+      var row = document.createElement('div');
+      row.className = 'row';
+      for (var y = 0; y < 20; y++) {
+        var pixelSq = document.createElement('div');
+        pixelSq.className = "pixelSq";
+        pixelSq.style.background = getWholeGrid[pixelCounter].style.background;
+        pixelCounter++;
+        row.appendChild(pixelSq);
+      }
+      savedPixelGrid.appendChild(row);
     }
-    console.log(getWholeGrid[1].style);
+  }
+
+  function load() {
+    var displayedGrid = document.querySelectorAll(".pixelSq");
+    var savedGrid = savedPixelGrid.querySelectorAll(".pixelSq");
+    for(var i = 0; i < displayedGrid.length; i++) {
+      displayedGrid[i].style.background = savedGrid[i].style.background;
+    }
   }
 
   function fill() {
@@ -61,15 +92,23 @@ function pixelPainter() {
     }
   }
 
+  function paintBucket() {
+
+    //curColorBox.style.background = getCoordinate
+  }
+
   return {
     getCurrentColor : getCurrentColor,
     setCurrentColor : setCurrentColor,
     getDragging : getDragging,
     setDragging : setDragging,
+    getMode : getMode,
     makeGrid : makeGrid,
+    paintBucket : paintBucket,
     clear : clear,
     erase : erase,
     save : save,
+    load : load,
     fill : fill
   };
 }
@@ -91,10 +130,11 @@ function pixelPainter() {
     }
   }
 
-  function clickPixel() {  //change this so color picking matters.  problem is how to access pixel painter object from here
+  function clickPixel() {
       this.style.background = pixelPainter1.getCurrentColor();
   }
-  function dragPixel() {  //change this so color picking matters.  problem is how to access pixel painter object from here
+
+  function dragPixel() {
     if( pixelPainter1.getDragging() === true ) {
       this.style.background = pixelPainter1.getCurrentColor();
     }
@@ -139,9 +179,11 @@ function pixelPainter() {
   makeDiv('colors', 'div', sideBar, '');
   makeDiv('sideBarChild', 'div', sideBar, '');
   makeDiv('curColorBox', 'div', sideBarChild, '');
+  makeDiv('paintBucket', 'button', sideBarChild, 'paintBucket');
   makeDiv('eraseButton', 'button', sideBarChild, 'Erase');
   makeDiv('clearButton', 'button', sideBarChild, 'Clear');
   makeDiv('saveButton', 'button', sideBarChild, 'Save');
+  makeDiv('loadButton', 'button', sideBarChild, 'Load');
   makeDiv('fillButton', 'button', sideBarChild, 'Fill');
 
   pixelPainter1.makeGrid(20, 20, 'pixelSq',grid); //set grid size here
@@ -159,9 +201,11 @@ function pixelPainter() {
   eventListeners('.colorSq', pickColor);
   fillColorPalette(colorArray);
 
+  eventListeners('#paintBucket', pixelPainter1.paintBucket);
   eventListeners('#clearButton', pixelPainter1.clear);
   eventListeners('#eraseButton', pixelPainter1.erase);
   eventListeners('#saveButton', pixelPainter1.save);
+  eventListeners('#loadButton', pixelPainter1.load);
   eventListeners('#fillButton', pixelPainter1.fill);
 
 
