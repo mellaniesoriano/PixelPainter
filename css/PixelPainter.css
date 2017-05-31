@@ -2,7 +2,7 @@ body {
   background-image: url('https://media.giphy.com/media/Z7BAIKRznBmPC/giphy.gif');
   background-size: 25%;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   justify-content: center; align-items: center;
 }
 
@@ -80,17 +80,18 @@ h1 {
   margin: 0px;
 }
 
-.logo {
+#logo {
   text-align: center;
   margin: none;
 }
 
-.logo b{
+#logo b{
   font: 100 15vh "Vibur";
   color: #b5bace;
   text-shadow: 0 -10px 100px, 0 0 2px, 0 0 1em #7781b2, 0 0 0.5em #7781b2, 0 0 0.1em #7781b2, 0 10px 3px #000;
 }
-.logo b span{
+
+#logo b span{
   animation: blink linear infinite 2s;
 }
 @keyframes blink {
@@ -125,4 +126,8 @@ h1 {
     color: inherit;
     text-shadow: inherit;
   }
+}
+
+h1 {
+  display: none;
 }
