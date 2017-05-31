@@ -141,18 +141,18 @@ function pixelPainter() {
   }
 
   function paintPixel(yxCoordinate) {
-    console.log(yxCoordinate);
+    // console.log(yxCoordinate);
     function recursivePixelFill(yxCoordinate) {
       if(yxCoordinate === null ) {
         return;
       } else {
         if(yxCoordinate.style.backgroundColor == pixelPainter1.getCurrentColor()) {
-          console.log("same color");
+          // console.log("same color");
           yxCoordinate.style.backgroundColor = pixelPainter1.getCurrentColor();
           return;
         } else {
           var coordinateArray = yxCoordinate.split("-");
-          console.log("different color");
+          // console.log("different color");
           yxCoordinate.style.backgroundColor = pixelPainter1.getCurrentColor();
           return  recursivePixelFill(coordinateArray[0] + 1 + "-" + coordinateArray[1]) ||
                   recursivePixelFill(coordinateArray[0] + -1 + "-" + coordinateArray[1]) ||
@@ -193,9 +193,6 @@ function pixelPainter() {
     pixelPainter1.setDragging(false);
   }
 
-
-
-
   var colorArray = [ '#000000', '#333333', '#555555', '#777777','#ffffff', '#00059F', '#0229BF', '#4E91FD', '#78C4FD', '#B9E2F5', '#006400', '#008B00', '#00CD00', '#00EE00', '#95F571', '#660066', '#800080', '#BE29EC', '#D896FF', '#EFBBFF', '#6F0000', '#B80000', '#D22525', '#FF6666', '#FFB9B9', '#FF4F00', '#FF6700', '#FF9248', '#FFAC00', '#FFE577', '#2E1915', '#663300', '#996633', '#BB9966', '#FFCC99'];  //set your color choice here.
 
   var pixelPainter1 = pixelPainter();
@@ -203,15 +200,12 @@ function pixelPainter() {
   var mainBody = document.getElementsByTagName('body')[0];
 
   var logo = document.createElement('h2');
-  logo.id = 'logo';
-  logo.innerHTML = '<b><span>P</span>ix<span>el</span> P<span>ai</span>nt<span>e</span>r';
-  mainBody.appendChild(logo);
+  makeDiv('logo', 'h2', mainBody, '<b><span>P</span>ix<span>el</span> P<span>ai</span>nt<span>e</span>r');
 
 
   var mainBox = document.querySelector('#pixelPainter');
   makeDiv('sideBar', 'div', mainBox, '');
   makeDiv('grid', 'div', mainBox, '');
-
   makeDiv('colors', 'div', sideBar, '');
   makeDiv('sideBarChild', 'div', sideBar, '');
   makeDiv('curColorBox', 'div', sideBarChild, '');
