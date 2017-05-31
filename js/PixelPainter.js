@@ -143,10 +143,22 @@ function pixelPainter() {
   function paintPixel(yxCoordinate) {
     console.log(yxCoordinate);
     function recursivePixelFill(yxCoordinate) {
-      if(yxCoordinate.style.backgroundColor == pixelPainter1.getCurrentColor()) {
-        console.log("same color");
+      if(yxCoordinate === null ) {
+        return;
       } else {
-        console.log("different color");
+        if(yxCoordinate.style.backgroundColor == pixelPainter1.getCurrentColor()) {
+          console.log("same color");
+          yxCoordinate.style.backgroundColor = pixelPainter1.getCurrentColor();
+          return;
+        } else {
+          var coordinateArray = yxCoordinate.split("-");
+          console.log("different color");
+          yxCoordinate.style.backgroundColor = pixelPainter1.getCurrentColor();
+          return  recursivePixelFill(coordinateArray[0] + 1 + "-" + coordinateArray[1]) ||
+                  recursivePixelFill(coordinateArray[0] + -1 + "-" + coordinateArray[1]) ||
+                  recursivePixelFill(coordinateArray[0] + "-" + coordinateArray[1] + 1) ||
+                  recursivePixelFill(coordinateArray[0] + "-" + coordinateArray[1] + -1);
+        }
       }
     }
     recursivePixelFill(yxCoordinate);
