@@ -200,6 +200,13 @@ function pixelPainter() {
 
   var pixelPainter1 = pixelPainter();
 
+  var mainBody = document.getElementsByTagName('body')[0];
+
+  var logo = document.createElement('h2');
+  logo.id = 'logo';
+  logo.innerHTML = '<b><span>P</span>ix<span>el</span> P<span>ai</span>nt<span>e</span>r';
+  mainBody.appendChild(logo);
+
 
   var mainBox = document.querySelector('#pixelPainter');
   makeDiv('sideBar', 'div', mainBox, '');
