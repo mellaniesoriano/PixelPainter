@@ -1,5 +1,5 @@
 function pixelPainter() {
-  var currentColor = "black";
+  var currentColor = "#000000";
   var isDragging = false;
   var mode = "draw";
 
@@ -40,6 +40,7 @@ function pixelPainter() {
       for (var y = 0; y < height; y++) {
         var pixelSq = document.createElement('div');
         pixelSq.className = pixelClass;
+        pixelSq.id = y + "-" + x;  // has to be y,x because grid is fixed sideways.
         row.appendChild(pixelSq);
       }
       appendTarget.appendChild(row);
@@ -93,6 +94,7 @@ function pixelPainter() {
   }
 
   function paintBucket() {
+    mode = "paintBucket";
 
     //curColorBox.style.background = getCoordinate
   }
@@ -131,14 +133,29 @@ function pixelPainter() {
   }
 
   function clickPixel() {
+    if(pixelPainter1.getMode() === "draw") {
       this.style.background = pixelPainter1.getCurrentColor();
+    } else if (pixelPainter1.getMode() === "paintBucket") {
+      paintPixel(this.id);
+    }
+  }
+
+  function paintPixel(yxCoordinate) {
+    console.log(yxCoordinate);
+    function recursivePixelFill(yxCoordinate) {
+      if(yxCoordinate.style.backgroundColor == pixelPainter1.getCurrentColor()) {
+        console.log("same color");
+      } else {
+        console.log("different color");
+      }
+    }
+    recursivePixelFill(yxCoordinate);
   }
 
   function dragPixel() {
     if( pixelPainter1.getDragging() === true ) {
       this.style.background = pixelPainter1.getCurrentColor();
     }
-
   }
 
   function pickColor() { //when you click on a color tile, it makes that the new drawing color.
