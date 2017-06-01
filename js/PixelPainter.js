@@ -25,12 +25,12 @@ function pixelPainter() {
     return mode;
   }
 
-  function getCoordinate(x, y) {
+/*  function getCoordinate(x, y) {
     var targetPixel = grid.querySelectorAll(".row")[x];
     targetPixel = targetPixel.querySelectorAll(".pixelSq")[y];
     return targetPixel;
   }
-
+*/
 
 
   function makeGrid(width, height, pixelClass, appendTarget) {
@@ -40,6 +40,7 @@ function pixelPainter() {
       for (var y = 0; y < height; y++) {
         var pixelSq = document.createElement('div');
         pixelSq.className = pixelClass;
+        pixelSq.style.background = "white";
         pixelSq.id = y + "-" + x;  // has to be y,x because grid is fixed sideways.
         row.appendChild(pixelSq);
       }
@@ -134,39 +135,71 @@ function pixelPainter() {
 
   function clickPixel() {
     if(pixelPainter1.getMode() === "draw") {
+      console.log("clickPixel");
       this.style.background = pixelPainter1.getCurrentColor();
     } else if (pixelPainter1.getMode() === "paintBucket") {
-      paintPixel(this.id);
+      paintPixel(this.id, this);
     }
   }
 
-  function paintPixel(yxCoordinate) {
+  function paintPixel(yxCoordinate, originPixel) {
     // console.log(yxCoordinate);
+    var startColorTest = originPixel.attributes;
+    console.log(startColorTest);
+    var startColor = originPixel.attributes.style.value;
+
+
+    /*var sameAsCurColorBox = curColorBox.attributes;//.attributes.style.value;
+    console.log("startColor: ", startColor);
+    console.log("curColorBox: ",sameAsCurColorBox);
+    console.log(startColor == sameAsCurColorBox);*/
+
     function recursivePixelFill(yxCoordinate) {
-      if(yxCoordinate === null ) {
-        return;
+      console.log("yx ", yxCoordinate);
+      var coordinate = document.getElementById(yxCoordinate);
+      if(coordinate === null ) { //end this branch if function hits edge of grid.
+        console.log("end branch by null");
+        return false;
       } else {
-        if(yxCoordinate.style.backgroundColor == pixelPainter1.getCurrentColor()) {
-          // console.log("same color");
-          yxCoordinate.style.backgroundColor = pixelPainter1.getCurrentColor();
-          return;
-        } else {
+        console.log("coordinate ",coordinate);
+
+        console.log("CoorColor ",coordinate.attributes.style.value);
+
+        console.log("compare: ", startColor == coordinate.attributes.style.value);
+
+        if(coordinate.attributes.style.value != startColor) { //end branch if reached
+          console.log("reached shape border");
+          //coordinate.style.backgroundColor = pixelPainter1.getCurrentColor();
+          //console.log( coordinate);
+          return false;
+        } else { //else continue on
+          console.log("different color");
+          coordinate.style.background = pixelPainter1.getCurrentColor();
           var coordinateArray = yxCoordinate.split("-");
-          // console.log("different color");
-          yxCoordinate.style.backgroundColor = pixelPainter1.getCurrentColor();
-          return  recursivePixelFill(coordinateArray[0] + 1 + "-" + coordinateArray[1]) ||
-                  recursivePixelFill(coordinateArray[0] + -1 + "-" + coordinateArray[1]) ||
-                  recursivePixelFill(coordinateArray[0] + "-" + coordinateArray[1] + 1) ||
-                  recursivePixelFill(coordinateArray[0] + "-" + coordinateArray[1] + -1);
+          //coordinate.style.backgroundColor = pixelPainter1.getCurrentColor();
+          return recursivePixelFill(modifyCoordinate(coordinateArray, 1, 0)) || recursivePixelFill(modifyCoordinate(coordinateArray, 1, 0)) || recursivePixelFill(modifyCoordinate(coordinateArray, 1, 0)) ||recursivePixelFill(modifyCoordinate(coordinateArray, 1, 0));
+/*          modifyCoordinate(coordinateArray, 1, 0);
+          modifyCoordinate(coordinateArray, -1, 0);
+          modifyCoordinate(coordinateArray, 0, 1);
+          modifyCoordinate(coordinateArray, 0, -1);*/
+          //console.log("\n\n\nreturning: ", modifyCoordinate(coordinateArray, 1, 0));
+          /*return (recursivePixelFill(coordinateArray[0] + 1 + "-" + coordinateArray[1]) || recursivePixelFill(coordinateArray[0] + -1 + "-" + coordinateArray[1]) || recursivePixelFill(coordinateArray[0] + "-" + coordinateArray[1] + 1) || recursivePixelFill(coordinateArray[0] + "-" + coordinateArray[1] + -1) );*/
         }
       }
     }
     recursivePixelFill(yxCoordinate);
   }
 
+  function modifyCoordinate(coordinateArray, yMod, xMod) {
+    var y = Number(coordinateArray[0]) + yMod;
+    var x = Number(coordinateArray[1]) + xMod;
+    return (y + "-" + x);
+  }
+
   function dragPixel() {
-    if( pixelPainter1.getDragging() === true ) {
+    if( pixelPainter1.getDragging() === true && pixelPainter1.getMode() == "draw" ) {
       this.style.background = pixelPainter1.getCurrentColor();
+      console.log("dragPixel");
     }
   }
 
@@ -185,7 +218,9 @@ function pixelPainter() {
 
   function nowDragging() {
     pixelPainter1.setDragging(true);
-    this.style.background = pixelPainter1.getCurrentColor();
+    if(pixelPainter1.getMode() == "draw") {
+      this.style.background = pixelPainter1.getCurrentColor();
+    }
 
   }
 
