@@ -7,9 +7,8 @@ body {
 }
 
 #pixelPainter {
-  display: flex;
-  flex-direction: row;
-  justify-content: center; align-items: center;
+  display: grid;
+  grid-template-columns: 2fr 5fr;
   padding: 30px 10px 20px 10px;
   cursor: pointer;
   background-color: #2f344c;
@@ -65,7 +64,7 @@ button {
   border-radius: 9px;
   box-shadow: 0px 6px #475077;
   font-family: 'Vibur', cursive;
-  font-size: 32px;
+  font-size: 28px;
   outline: none;
   cursor: pointer;
   border: none;
