@@ -161,6 +161,7 @@ function pixelPainter() {
         console.log("end branch by null");
         return false;
       } else {
+        console.log("startColor " ,startColor);
         console.log("coordinate ",coordinate);
 
         console.log("CoorColor ",coordinate.attributes.style.value);
@@ -177,8 +178,10 @@ function pixelPainter() {
           coordinate.style.background = pixelPainter1.getCurrentColor();
           var coordinateArray = yxCoordinate.split("-");
           //coordinate.style.backgroundColor = pixelPainter1.getCurrentColor();
-          return recursivePixelFill(modifyCoordinate(coordinateArray, 1, 0)) || recursivePixelFill(modifyCoordinate(coordinateArray, 1, 0)) || recursivePixelFill(modifyCoordinate(coordinateArray, 1, 0)) ||recursivePixelFill(modifyCoordinate(coordinateArray, 1, 0));
-/*          modifyCoordinate(coordinateArray, 1, 0);
+          return recursivePixelFill(modifyCoordinate(coordinateArray, 1, 0)) || recursivePixelFill(modifyCoordinate(coordinateArray, -1, 0)) || recursivePixelFill(modifyCoordinate(coordinateArray, 0, 1)) ||recursivePixelFill(modifyCoordinate(coordinateArray, 0, -1));
+
+
+/*        modifyCoordinate(coordinateArray, 1, 0);
           modifyCoordinate(coordinateArray, -1, 0);
           modifyCoordinate(coordinateArray, 0, 1);
           modifyCoordinate(coordinateArray, 0, -1);*/
