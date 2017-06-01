@@ -145,7 +145,7 @@ function pixelPainter() {
   function paintPixel(yxCoordinate, originPixel) {
     // console.log(yxCoordinate);
     var startColorTest = originPixel.attributes;
-    console.log(startColorTest);
+    //console.log(startColorTest);
     var startColor = originPixel.attributes.style.value;
 
 
@@ -155,26 +155,28 @@ function pixelPainter() {
     console.log(startColor == sameAsCurColorBox);*/
 
     function recursivePixelFill(yxCoordinate) {
-      console.log("yx ", yxCoordinate);
+      //console.log("yx ", yxCoordinate);
       var coordinate = document.getElementById(yxCoordinate);
       if(coordinate === null ) { //end this branch if function hits edge of grid.
-        console.log("end branch by null");
+        //console.log("end branch by null");
         return false;
       } else {
-        console.log("startColor " ,startColor);
-        console.log("coordinate ",coordinate);
+        //console.log("startColor " ,startColor);
+        //console.log("coordinate ",coordinate);
 
-        console.log("CoorColor ",coordinate.attributes.style.value);
+        //console.log("CoorColor ",coordinate.attributes.style.value);
 
-        console.log("compare: ", startColor == coordinate.attributes.style.value);
+        //console.log("compare: ", startColor == coordinate.attributes.style.value);
 
-        if(coordinate.attributes.style.value != startColor) { //end branch if reached
-          console.log("reached shape border");
+        if(coordinate.attributes.style.value != startColor) { //end branch if hit border
+          //console.log("reached shape border");
           //coordinate.style.backgroundColor = pixelPainter1.getCurrentColor();
           //console.log( coordinate);
           return false;
+        } else if(coordinate.attributes.style.value == pixelPainter1.getCurrentColor()) { //end branch if pixel is already target color
+          return false;
         } else { //else continue on
-          console.log("different color");
+          //console.log("different color");
           coordinate.style.background = pixelPainter1.getCurrentColor();
           var coordinateArray = yxCoordinate.split("-");
           //coordinate.style.backgroundColor = pixelPainter1.getCurrentColor();
