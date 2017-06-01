@@ -59,6 +59,11 @@ function pixelPainter() {
 
   function erase() {
     setCurrentColor('white');
+    curColorBox.style.background = getCurrentColor();
+    mode = "draw";
+    var paint = document.querySelector("#paintBucket");
+    paint.innerHTML = "Paint";
+
   }
 
   function save() {  //saves a div identical to the current grid to a variable in the pixelPainter object.
@@ -79,6 +84,7 @@ function pixelPainter() {
       }
       savedPixelGrid.appendChild(row);
     }
+
   }
 
   function load() {
@@ -151,12 +157,14 @@ function pixelPainter() {
   }
 
   function paintPixel(yxCoordinate, originPixel) {
-    var startColorTest = originPixel.attributes;
-    var startColor = originPixel.attributes.style.value;
+/*    var startColorTest = originPixel.attributes;
+*/    var startColor = originPixel.attributes.style.value;
 
-    function recursivePixelFill(yxCoordinate) {
+    function recursivePixelFill(yxCoordinate, countdown) {
       var coordinate = document.getElementById(yxCoordinate);
       if(coordinate === null ) {
+        return false;
+      } else if(countdown <= 0) {
         return false;
       } else {
         if(coordinate.attributes.style.value != startColor) { //end branch if hit border
@@ -166,11 +174,11 @@ function pixelPainter() {
         } else { //else continue on
           coordinate.style.background = pixelPainter1.getCurrentColor();
           var coordinateArray = yxCoordinate.split("-");
-          return recursivePixelFill(modifyCoordinate(coordinateArray, 1, 0)) || recursivePixelFill(modifyCoordinate(coordinateArray, -1, 0)) || recursivePixelFill(modifyCoordinate(coordinateArray, 0, 1)) ||recursivePixelFill(modifyCoordinate(coordinateArray, 0, -1));
+          return recursivePixelFill(modifyCoordinate(coordinateArray, 1, 0) ,countdown-1) || recursivePixelFill(modifyCoordinate(coordinateArray, -1, 0) ,countdown-1) || recursivePixelFill(modifyCoordinate(coordinateArray, 0, 1) ,countdown-1) ||recursivePixelFill(modifyCoordinate(coordinateArray, 0, -1), countdown-1);
         }
       }
     }
-    recursivePixelFill(yxCoordinate);
+    recursivePixelFill(yxCoordinate,400);
   }
 
   function modifyCoordinate(coordinateArray, yMod, xMod) {
