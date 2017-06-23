@@ -141,7 +141,7 @@ function pixelPainter() {
     append.appendChild(newElement);
   }
 
-  function eventListeners(className, func) {
+  function attachEventListeners(className, func) {
     var currentClass = document.querySelectorAll(className);
     for (var i = 0; i < currentClass.length; i++) {
       currentClass[i].addEventListener('click', func);
@@ -174,11 +174,17 @@ function pixelPainter() {
         } else { //else continue on
           coordinate.style.background = pixelPainter1.getCurrentColor();
           var coordinateArray = yxCoordinate.split("-");
-          return recursivePixelFill(modifyCoordinate(coordinateArray, 1, 0) ,countdown-1) || recursivePixelFill(modifyCoordinate(coordinateArray, -1, 0) ,countdown-1) || recursivePixelFill(modifyCoordinate(coordinateArray, 0, 1) ,countdown-1) ||recursivePixelFill(modifyCoordinate(coordinateArray, 0, -1), countdown-1);
+          return recursivePixelFill(modifyCoordinate(coordinateArray, 1, 0) ,randomPercent(countdown -1)) || recursivePixelFill(modifyCoordinate(coordinateArray, -1, 0) ,randomPercent(countdown-1)) || recursivePixelFill(modifyCoordinate(coordinateArray, 0, 1) ,randomPercent(countdown-1)) ||recursivePixelFill(modifyCoordinate(coordinateArray, 0, -1), randomPercent(countdown-1));
         }
       }
     }
-    recursivePixelFill(yxCoordinate,400);
+    recursivePixelFill(yxCoordinate, 1000);
+  }
+
+  function randomPercent(countdown) {
+    var remainder = Math.floor(Math.random() * countdown );
+    console.log(remainder);
+    return remainder;
   }
 
   function modifyCoordinate(coordinateArray, yMod, xMod) {
@@ -242,7 +248,7 @@ function pixelPainter() {
   makeDiv('fillButton', 'button', sideBarChild, 'Fill');
 
   pixelPainter1.makeGrid(20, 20, 'pixelSq',grid); //set grid size here
-  eventListeners('.pixelSq', clickPixel);
+  attachEventListeners('.pixelSq', clickPixel);
 
   var implementDragging = document.querySelectorAll('.pixelSq');
   for (var i = 0; i < implementDragging.length; i++) {
@@ -253,15 +259,15 @@ function pixelPainter() {
 
 
   pixelPainter1.makeGrid(7, 5,'colorSq', colors);  //set color palette size here
-  eventListeners('.colorSq', pickColor);
+  attachEventListeners('.colorSq', pickColor);
   fillColorPalette(colorArray);
 
-  eventListeners('#paintBucket', pixelPainter1.paintBucket);
-  eventListeners('#clearButton', pixelPainter1.clear);
-  eventListeners('#eraseButton', pixelPainter1.erase);
-  eventListeners('#saveButton', pixelPainter1.save);
-  eventListeners('#loadButton', pixelPainter1.load);
-  eventListeners('#fillButton', pixelPainter1.fill);
+  attachEventListeners('#paintBucket', pixelPainter1.paintBucket);
+  attachEventListeners('#clearButton', pixelPainter1.clear);
+  attachEventListeners('#eraseButton', pixelPainter1.erase);
+  attachEventListeners('#saveButton', pixelPainter1.save);
+  attachEventListeners('#loadButton', pixelPainter1.load);
+  attachEventListeners('#fillButton', pixelPainter1.fill);
 
 })();
 
